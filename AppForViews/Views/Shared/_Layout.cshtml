@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    @*общий стиль представлений*@
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <nav>
+        <ul class="menu">
+            <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+            <li>@Html.ActionLink("Список", "BookIndex", "Home")</li>
+
+        </ul>
+    </nav>
+    @*сюда вставляется представление*@
+    @RenderBody()
+
+    @*создадим футер для всех представлений
+    не забыть подключить в представлении чтобы не было ошибки*@
+    <footer>
+        @*чтобы создать футер по умолчанию добавим  false*@
+        @*@RenderSection("Footer", false)*@
+
+        @*либо вот так с проверкой*@
+        @if(IsSectionDefined("Footer"))
+        {
+            @RenderSection("Footer")
+        }
+        else
+        {
+            <span>Содержание элемента по умолчанию</span>
+        }
+    </footer>
+</body>
+</html>

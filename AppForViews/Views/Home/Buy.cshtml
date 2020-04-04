@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <title>Покупка</title>
+</head>
+<body>
+    <h2>Форма оформления покупки </h2>
+    <div>
+        <h3>Форма с хелперами </h3>
+        @using (Html.BeginForm("Buy", "Home", FormMethod.Post))
+        {
+
+                @*<input type="hidden" name="BookId" value="@ViewBag.BookId" />*@
+                @Html.Hidden("BookId", ViewBag.BookId as string)
+                <table>
+                    <tr>
+                        <td><p>@Html.Label("Person", "Введите имя")</p></td>
+                        <td>@Html.TextBox("Person","Введите имя")</td>
+                    </tr>
+                    <tr>
+                        <td><p>@Html.Label("Address", "Введите адрес")</p></td>
+                        <td>@Html.TextBox("Address", "Введите адрес")</td>
+                    </tr>
+                    <tr><td><input type="submit" value="Отправить" /></td></tr>
+                </table>
+
+        }
+
+    </div>
+    <div>
+        <h3>Обычная форма</h3>
+        <form action="" method="post">
+            <input type="hidden" name="BookId" value="@ViewBag.BookId" />
+
+            <table>
+                <tr>
+                    <td><p>Введите свое имя</p></td>
+                    <td><input type="text" name="Person" /></td>
+                </tr>
+                <tr>
+                    <td><p>Введите адрес: </p></td>
+                    <td><input type="text" name="Address" /></td>
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /></td></tr>
+            </table>
+
+        </form>
+    </div>
+</body>
+</html>

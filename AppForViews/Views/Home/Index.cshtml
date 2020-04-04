@@ -1,0 +1,84 @@
+﻿@using AppForViews.Models
+@model IEnumerable<Book> 
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!DOCTYPE html/>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <title>Книжный магазин</title>
+</head>
+<body>
+    <div>
+        <h3>Распродажа книг</h3>
+        <table>
+            <tr>
+                <td><p>Название книги</p></td>
+                <td><p>Автор</p></td>
+                <td><p>Цена</p></td>
+            </tr>
+            @*указываем конкретно класс модели*@
+            @foreach (Book item in Model)
+            {
+                <tr>
+                    <td><p>@item.Name</p></td>
+                    <td><p>@item.Author</p></td>
+                    <td><p>@item.Price</p></td>
+                    <td><p><a href="/Home/Buy/@item.Id">Купить</a></p></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    @helper BookList(IEnumerable<Book> books)
+    {
+        <ul>
+            @foreach (Book item in books)
+            {
+                <li>
+                    @item.Author
+                </li>
+            }
+        </ul>
+    }
+
+    <h3>Список авторов создан через хелпер в Index.cshtml</h3>
+    @BookList(Model)
+
+    @using AppForViews.Helpers
+    @{string[] names = new string[] { "Anton", "Alex", "Paul", "Anabel" }; }
+    <h4>Используем класс ListHelper для вывода списка днамическим путем</h4>
+    @*@Html.CreateList(new string[] { "Лондон", "Париж", "Берлин" }, new { @class = "btn", id = "citiesList" })*@
+    <h5>список с классом btn и id namesList</h5>
+    @Html.CreateList(names , new { @class = "btn", id = "namesList" })
+
+
+    <div>
+        <h3> Здесь работает хелпер из папки App_Code</h3>
+        <h2>Cities</h2>
+        @MyHelpers.HtmlList(new string[] { "Лондон", "Париж", "Берлин" })
+        <h3>Countries</h3>
+        @MyHelpers.HtmlList(new string[] { "Great Britain", "France", "Germany" })
+
+    </div>
+
+    <div>
+        <h4>частичное представление</h4>
+        @Html.Partial("Partial", new string[] { "Ukraine", "Belarus", "Latvia", "Litva", "Moldova" })
+        @*  или так Html.RenderPartial("Partial") *@
+        @*добавим футер вниз таблицы*@
+        @section Footer{
+            <h4>Все права защищены 2020</h4>
+        }
+
+    </div>
+
+</body>
+</html>
